@@ -46,7 +46,12 @@
 
 <div id="sidebar">
 	<div class="mui--text-light mui--text-display1 mui--align-vertical">Guess Who?</div>
+	<div class="mui-divider"></div>
+	<ul class="mui-list--unstyled mui--text-title">
+		<li><a href="{% url 'guesswho:home' %}" class="mui--text-white">Home</a></li>
+		<li><a href="{% url 'guesswho:play' %}" class="mui--text-white">Play</a></li>
 	{% block sidebar %}{% endblock %}
+	</ul>
 </div>
 <div id="content" class="mui-container-fluid">
 	{% block content %}{% endblock %}

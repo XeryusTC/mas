@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Play Guess Who?{% endblock %}
+
+{% block content %}
+<div class="mui-row">
+	<div class="mui-col-sm-10 mui-col-sm-offset-1">
+		<div class="mui--text-dark-secondary mui--text-headline">Instructions</div>
+		<div class="mui-divider"></div>
+	</div>
+	<div class="mui-col-sm-10 mui-col-sm-offset-1">
+		<p>Add some explanation.</p>
+	</div>
+</div>
+<div class="mui-row">
+	<div class="mui-col-sm-offset-1 mui-col-sm-10">
+		<a href="{% url 'guesswho:reset' %}" class="mui-btn mui-btn--danger">Start new game</a>
+	</div>
+</div>
+{% endblock %}
