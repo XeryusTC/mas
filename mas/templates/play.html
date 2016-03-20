@@ -62,10 +62,24 @@
 			Show game board
 		</div>
 		<div class="mui-col-sm-2">
-			Show computer knowledge about player's character
+			<div class="mui--text-dark-secondary mui--text-caption">
+				Computer knows
+			</div>
+			{% autoescape off %}
+				{% for k in npc_knows %}
+					{{ k }}</br>
+				{% endfor %}
+			{% endautoescape %}
 		</div>
 		<div class="mui-col-sm-2">
-			Show knowledge player has about computer character
+			<div class="mui--text-dark-secondary mui--text-caption">
+				Computer knows that you know
+			</div>
+			{% autoescape off %}
+				{% for k in player_knows %}
+					{{ k }}</br>
+				{% endfor %}
+			{%endautoescape %}
 		</div>
 	</div>
 
@@ -75,8 +89,22 @@
 			<div class="mui-divider"></div>
 		</div>
 		<div class="mui-col-sm-10 mui-col-sm-offset-1">
-			<a href="#"
-				class="mui-btn mui-btn--raised">a</a>
+			<a href="{% url 'guesswho:question' 'bald' %}"
+				class="mui-btn mui-btn--raised">Is he bald?</a>
+			<a href="{% url 'guesswho:question' 'beard' %}"
+				class="mui-btn mui-btn--raised">Does he have a beard?</a>
+			<a href="{% url 'guesswho:question' 'glasses' %}"
+				class="mui-btn mui-btn--raised">Does he wear glasses?</a>
+			<a href="{% url 'guesswho:question' 'hat' %}"
+				class="mui-btn mui-btn--raised">Does he wear a hat?</a>
+		</div>
+	</div>
+
+	<div class="mui-row">
+		<div class="mui-col-sm-10 mui-col-sm-offset-1">
+			{% for question in request.session.questions %}
+				<div>{{ question }}</div>
+			{% endfor %}
 		</div>
 	</div>
 {% endif %}
