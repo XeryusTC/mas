@@ -5,12 +5,12 @@ from django.views.generic import TemplateView
 import random
 
 characters = {
-    'Ben': ['glasses', 'beard'],
-    'Bob': ['glasses', 'bald'],
-    'Jake': ['glasses', 'hat'],
-    'John': ['hat', 'bald'],
-    'Richard': ['hat', 'beard'],
-    'Sam': ['bald', 'beard'],
+    'David': ['beard'],
+    'Frans': [],
+    'Max': ['moustache'],
+    'Paul': ['glasses'],
+    'Richard': ['bald', 'beard', 'moustache'],
+    'Sam': ['bald', 'glasses'],
 }
 
 # States of knowledge
@@ -64,13 +64,13 @@ def pick_char(request, name):
             'bald': UNKNOWN,
             'beard': UNKNOWN,
             'glasses': UNKNOWN,
-            'hat': UNKNOWN,
+            'moustache': UNKNOWN,
         }
         request.session['player_knows'] = {
             'bald': UNKNOWN,
             'beard': UNKNOWN,
             'glasses': UNKNOWN,
-            'hat': UNKNOWN,
+            'moustache': UNKNOWN,
         }
         request.session['questions'] = []
     else:
@@ -84,8 +84,8 @@ def question(request, subject):
         question = 'Does he have a beard?'
     elif subject == 'glasses':
         question = 'Does he wear glasses?'
-    elif subject == 'hat':
-        question = 'Does he wear a hat?'
+    elif subject == 'moustache':
+        question = 'Does he have a moustache?'
 
     if subject in characters[request.session['npc_char']]:
         question += ' Yes.'
