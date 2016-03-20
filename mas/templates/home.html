@@ -1,33 +1,134 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
-{% block title %}test{% endblock %}
+{% block title %}Guess who?{% endblock %}
 
 {% block content %}
 <div class="mui-row">
 	<div class="mui-col-sm-10 mui-col-sm-offset-1">
-		<div class="mui--text-dark-secondary mui--text-headline">Introduction</div>
+		<div class="mui--text-dark-secondary mui--text-headline">
+			Introduction
+		</div>
 		<div class="mui-divider"></div>
-	</div>
-	<div class="mui-col-sm-10 mui-col-sm-offset-1">
 		<p>
-		The game of Guess Who? is played by two players. Before the game starts
-		both of them pick a	character from a set of characters to represent
-		them. Each character exhibits different traits. The goal of the game
-		is to figure out which of the characters the other player has picked,
-		the first player to do so wins the game. Player alternate asking the
-		other player 'yes' or 'no' questions about which traits their character
-		possesses. Players are also always allowed to directly guess what the
-		identity of their opponent is.
+		Welcome to our final project for the <em>Multi-Agent Systems</em>
+		course. Here we describe and analyse the well-known classical game of
+		<em>Guess Who?</em> with the use of <em>epistemic logic</em>. 
 		</p>
 
-		<p>To keep the game simple we are going to have four different traits:
-		whether the person has a beard, hat, glasses and whether the person is
-		bald. For each trait there are two characters who exhibit this trait,
-		so there are 6 characters in total.</p>
-	</div>
+		<p>
+		The game of <em>Guess Who?</em> is played by two players, who each have
+		to <em>guess</em> the identity of the opposing player. Before the game
+		starts both players pick a character from a set of 24 character cards
+		to represent them. Each character exhibits different traits. The goal
+		of the game is to figure out which of the characters the other player
+		has picked, the first player to do so wins the game. Players alternate
+		asking the other player <em>'yes'</em> or <em>'no'</em> questions about
+		which traits their character possesses. Players are also always allowed
+		to directly guess what the identity of their opponent is.
+		</p>
 
-	<div class="mui-col-sm-10 mui-col-sm-offset-1">
-		<div class="mui--text-dark-secondary mui--text-headline">Characters</div>
+		<p>
+		For this project we simplify the game by focussing on four different
+		character traits: whether the person has a <em>beard</em>,
+		<em>moustache</em>, <em>glasses</em> and whether the person is
+		<em>bald</em>. For each trait we choose two characters who exhibited a
+		given trait, which led to a total of six characters.
+		</p>
+
+		<div class="mui--text-dark-secondary mui--text-headline">Analysis</div>
+		<div class="mui-divider"></div>
+		<div class="mui--text-dark-secondary mui--text-title">Characters</div>
+
+		<p>
+		The characters that we choose were David, Frans, Max, Paul, Richard and
+		Sam. Their character cards are depicted here.
+		</p>
+
+		<p style="text-align:center;">
+		<img src="{% static 'David.png' %}" alt="David">
+		<img src="{% static 'Frans.png' %}" alt="Frans">
+		<img src="{% static 'Max.png' %}" alt="Max">
+		<img src="{% static 'Paul.png' %}" alt="Paul">
+		<img src="{% static 'Richard.png' %}" alt="Richard">
+		<img src="{% static 'Sam.png' %}" alt="Sam">
+		</p>
+
+		<p>
+		When looking at the character traits we can see that Frans is the only
+		person not exhibiting any of the traits, while Richard is the only one
+		possessing three out of four traits. David, Max and Paul exhibit only
+		one trait and Sam is the only person with two traits.
+		</p>
+
+		<p style="text-align:center;"><img src="{% static 'Traits.png' %}" alt="Character traits"></p>
+
+		<div class="mui--text-dark-secondary mui--text-title">Knowledge</div>
+		<p>
+		The knowledge of the players throughout the game can be expressed
+		through the use of various Kripke models. The answers to the questions
+		can be seen as public announcements which would lead to reduced
+		knowledge models. At the start of each game, a player's knowledge about
+		the identity of his opponent can be modeled as follows:
+		</p>
+
+		<p style="text-align:center;"><img src="{% static 'Kripke0.png' %}" alt="Default Kripke model"></p>
+
+		<p>
+		In these Kripke models the states represent the characters in the game,
+		with their respective traits being represented by propositions. If
+		<em>b<sub>a</sub></em> holds in a specific state, it means that the
+		associated character is bald. Likewise, if <em>g<sub>l</sub></em>,
+		<em>b<sub>c</sub></em>, <em>g<sub>l</sub></em> and
+		<em>m<sub>o</sub></em> hold, the character also wears glasses and has a
+		beard and moustache.
+		</p>
+
+		<p>In order to illustrate the dynamic aspect of the model we can look
+		at the following example. Take the identity of our opponent to be Sam.
+		Note that the following example only shows the knowledge about the
+		opponents identity. A complete game would also require a model for the
+		knowledge about your own character.</p>
+
+		<p>
+		We can ask whether the person has a moustache. Assuming that the
+		opponent is truthful, he or she would respond with <em>'no'</em>. Since
+		we now know that the character does not have a moustache, we now also
+		know that Max and Richard cannot be the identity of the opponent. This
+		leads to the updated Kripke model:
+		</p>
+
+		<p style="text-align:center;"><img src="{% static 'Kripke1.png' %}" alt="Updated Kripke model after 1 question"></p>
+
+		<p>We know that David, Sam, Frans and Paul are still viable
+		alternatives. To further decrease the options we can ask whether the
+		person wears glasses, to which the opponent responds with
+		<em>'yes'</em>. Since we know that <em>g<sub>l</sub></em> holds, we can
+		update our model once again:</p>
+
+		<p style="text-align:center;"><img src="{% static 'Kripke2.png' %}" alt="Updated Kripke model after 2 question"></p>
+
+		<p>
+		It is after this question that we now know that the identity of the
+		opponent is either Sam or Paul. We can ofcourse continue with a third
+		question, which would allow for a guaranteed correct identification.
+		However, this would take two steps in total. Although we had the option
+		throughout the game, directly guessing a character would result in
+		either an immediate win (granted that the opponent hasn't guessed your
+		identity) or at most two turns.
+		</p>
+
+		<div class="mui--text-dark-secondary mui--text-title">Game flow</div>
+		<p>Talk about tactics, strategies, etc.</p>
+
+		<div class="mui--text-dark-secondary mui--text-headline">
+			Application
+		</div>
+		<div class="mui-divider"></div>
+
+		<div class="mui--text-dark-secondary mui--text-headline">
+			Conclusion
+		</div>
 		<div class="mui-divider"></div>
 	</div>
 </div>
