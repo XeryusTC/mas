@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block title %}Play Guess Who?{% endblock %}
 
@@ -40,8 +41,9 @@
 		</div>
 		<div class="mui-col-sm-10 mui-col-sm-offset-1">
 			{% for c in chars %}
-				<a href="{% url 'guesswho:char' c %}"
-					class="mui-btn mui-btn--raised">{{ c }}</a>
+				<a href="{% url 'guesswho:char' c %}">
+					<img src="{% static c %}.png" />
+				</a>
 			{% endfor %}
 		</div>
 	</div>
@@ -58,8 +60,37 @@
 				You have picked {{ request.session.char }}.
 			</div>
 		</div>
-		<div class="mui-col-sm-4 mui-col-sm-offset-1">
-			Show game board
+		<div class="mui-col-sm-6 mui-col-sm-offset-1">
+			{% if 'David' in exclude %}
+				<img src="{% static 'David2.png' %}" alt="David" />
+			{% else %}
+				<img src="{% static 'David.png' %}" alt="David" />
+			{% endif %}
+			{% if 'Frans' in exclude %}
+				<img src="{% static 'Frans2.png' %}" alt="Frans" />
+			{% else %}
+				<img src="{% static 'Frans.png' %}" alt="Frans" />
+			{% endif %}
+			{% if 'Max' in exclude %}
+				<img src="{% static 'Max2.png' %}" alt="Max" />
+			{% else %}
+				<img src="{% static 'Max.png' %}" alt="Max" />
+			{% endif %}
+			{% if 'Paul' in exclude %}
+				<img src="{% static 'Paul2.png' %}" alt="Paul" />
+			{% else %}
+				<img src="{% static 'Paul.png' %}" alt="Paul" />
+			{% endif %}
+			{% if 'Richard' in exclude %}
+				<img src="{% static 'Richard2.png' %}" alt="Richard" />
+			{% else %}
+				<img src="{% static 'Richard.png' %}" alt="Richard" />
+			{% endif %}
+			{% if 'Sam' in exclude %}
+				<img src="{% static 'Sam2.png' %}" alt="Sam" />
+			{% else %}
+				<img src="{% static 'Sam.png' %}" alt="Sam" />
+			{% endif %}
 		</div>
 		<div class="mui-col-sm-2">
 			<div class="mui--text-dark-secondary mui--text-caption">

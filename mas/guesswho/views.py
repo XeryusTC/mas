@@ -39,6 +39,7 @@ class PlayView(TemplateView):
                     context['npc_knows'].append(k + ' &#8897; &not;' +  k)
 
             context['player_knows'] = []
+            context['exclude'] = set()
             for k, v in self.request.session['player_knows'].items():
                 if v == YES:
                     context['player_knows'].append(k)
@@ -46,9 +47,19 @@ class PlayView(TemplateView):
                     context['player_knows'].append('&not;' + k)
                 elif v == UNKNOWN:
                     context['player_knows'].append(k + ' &#8897; &not;' + k)
+
+                # Find out which characters to grey out
+                for name, traits in characters.items():
+                    if k in traits and v == NO:
+                        context['exclude'].add(name)
+                    elif k not in traits and v == YES:
+                        context['exclude'].add(name)
+            context['exclude'] = list(context['exclude'])
+            print(context['exclude'])
         except KeyError:
             context['npc_knows'] = None
             context['player_knows'] = None
+            context['exclude'] = None
         return context
 
 
