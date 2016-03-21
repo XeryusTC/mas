@@ -55,7 +55,6 @@ class PlayView(TemplateView):
                     elif k not in traits and v == YES:
                         context['exclude'].add(name)
             context['exclude'] = list(context['exclude'])
-            print(context['exclude'])
         except KeyError:
             context['npc_knows'] = None
             context['player_knows'] = None
@@ -83,28 +82,72 @@ def pick_char(request, name):
             'glasses': UNKNOWN,
             'moustache': UNKNOWN,
         }
+        request.session['npc_possible'] = list(characters.keys())
         request.session['questions'] = []
     else:
         messages.warning(request, 'This is not a valid character')
     return HttpResponseRedirect(reverse('guesswho:play'))
 
-def question(request, subject):
+def get_question_text(subject):
     if subject == 'bald':
-        question = 'Is he bald?'
+        return 'Is he bald?'
     elif subject == 'beard':
-        question = 'Does he have a beard?'
+        return 'Does he have a beard?'
     elif subject == 'glasses':
-        question = 'Does he wear glasses?'
+        return 'Does he wear glasses?'
     elif subject == 'moustache':
-        question = 'Does he have a moustache?'
+        return 'Does he have a moustache?'
+
+def question(request, subject):
+    question = 'You: ' + get_question_text(subject)
+    request.session['questions'].append(question)
 
     if subject in characters[request.session['npc_char']]:
-        question += ' Yes.'
+        question = 'Computer: Yes.'
         request.session['player_knows'][subject] = YES
     else:
-        question += ' No.'
+        question = 'Computer: No.'
         request.session['player_knows'][subject] = NO
     request.session['questions'].append(question)
-    request.session.modified = True
 
+    # Computer turn
+    # Count the number of traits that are present in the possible characters
+    traits = {}
+    for c in request.session['npc_possible']:
+        for t in characters[c]:
+            if request.session['npc_knows'][t] != UNKNOWN:
+                continue # Skip traits we already know something about
+            try:
+                traits[t] += 1
+            except KeyError:
+                traits[t] = 1
+    print(traits)
+    # Pick the trait with the highest character count
+    trait = list(traits.keys())[0]
+    max = traits[trait]
+    for t, v in traits.items():
+        if v > max:
+            max = v
+            trait = t
+    # Ask the question about the trait (and update the Kripke model)
+    question = 'Computer: ' + get_question_text(trait)
+    request.session['questions'].append(question)
+    remove = set()
+    if trait in characters[request.session['char']]:
+        answer = 'You: Yes.'
+        request.session['npc_knows'][trait] = YES
+        for char in request.session['npc_possible']:
+            if trait not in characters[char]:
+                remove.add(char)
+    else:
+        answer = 'You: No.'
+        request.session['npc_knows'][trait] = NO
+        for char in request.session['npc_possible']:
+            if trait in characters[char]:
+                remove.add(char)
+    request.session['questions'].append(answer)
+    for c in remove:
+        request.session['npc_possible'].remove(c)
+
+    request.session.modified = True
     return HttpResponseRedirect(reverse('guesswho:play'))

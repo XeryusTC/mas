@@ -57,7 +57,12 @@
 		</div>
 		<div class="mui-col-sm-10 mui-col-sm-offset-1">
 			<div class="mui--text-body2">
-				You have picked {{ request.session.char }}.
+				You have picked {{ request.session.char }}. The computer thinks
+				that you are
+				{% for c in  request.session.npc_possible %}
+					{% if forloop.last %} or {% endif %}
+					{{ c }}{% if not forloop.last %}, {%endif %}
+				{% endfor %}.
 			</div>
 		</div>
 		<div class="mui-col-sm-6 mui-col-sm-offset-1">
