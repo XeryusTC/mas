@@ -115,9 +115,33 @@
 		identity) or at most two turns.
 		</p>
 
-		<div class="mui--text-dark-secondary mui--text-title">Game flow</div>
-		<p>Talk about tactics, strategies, etc.</p>
+		<div class="mui--text-dark-secondary mui--text-title">Strategies</div>
+		<p>
+		Although the game of <em>Guess Who?</em> is not known for its dynamic 
+		and complex gameplay, it is possible to use different strategies to win. 
+		Since the goal is to discover the identity of your opponent before your 
+		own identity is guessed, the number of steps that you'll need to do so 
+		is an important element. This number is largely dependent on the 
+		probability of your opponent having picked a particular character, but 
+		also on the list of questions that you ask. Based on the list of 
+		remaining characters, a particular question can give you a low chance 
+		to heavily shorten this list, although this also comes with a high chance 
+		of only shortening the list by a few characters. Another strategy is to 
+		avoid risk and only ask questions that will roughly cut the number of 
+		characters in half, without any form of potential punishment. While this 
+		would require the player to ask more questions than in the best case 
+		scenario for the risk strategy, it would require less than in its worst 
+		case.  
+		</p>
 
+		<p>
+		To investigate these strategies we can look at risk/safe
+		</p>
+		
+		<p style="text-align:center;"><img src="{% static 'StrategyRisk.png' %}" alt="Strategy for taking risk with starting question Beard?"></p>
+		
+		<p style="text-align:center;"><img src="{% static 'StrategySafe.png' %}" alt="Strategy for playing safe with starting question Beard?"></p>
+		
 		<div class="mui--text-dark-secondary mui--text-headline">
 			Application
 		</div>
@@ -127,6 +151,11 @@
 			Conclusion
 		</div>
 		<div class="mui-divider"></div>
+		<p>
+		- Summarise what we did
+		- is it useful
+		- future stuff
+		</p>
 	</div>
 </div>
 {% endblock %}
