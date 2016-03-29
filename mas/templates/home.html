@@ -66,19 +66,28 @@
 		<div class="mui--text-dark-secondary mui--text-title">Knowledge</div>
 		<p>
 		The knowledge of the players throughout the game can be expressed
-		through the use of various Kripke models. The answers to the questions
-		can be seen as public announcements which would lead to reduced
-		knowledge models. At the start of each game, a player's knowledge about
-		the identity of his opponent can be modeled as follows:
+		through the use of various Kripke models. A Kripke model is a structure 
+		of nodes, of which each represent a possible world. Here, a world 
+		contains the proposition that a particular character is the identity of 
+		the opponent. The relations between the worlds represent the knowledge 
+		of a particular agent (the player or NPC) about these propositions. A 
+		relation between two nodes signifies that the agent is not sure about 
+		the world that they are in, since the identity of the opponent is still 
+		not certain. The answers to the questions that each player can ask can 
+		be seen as public announcements, which would lead to reduced knowledge 
+		models. At the start of each game, a player's knowledge about the 
+		identity of his opponent can be modeled as follows:
 		</p>
 
 		<p style="text-align:center;"><img src="{% static 'Kripke0.png' %}" alt="Default Kripke model"></p>
 
 		<p>
-		In these Kripke models the states represent the characters in the game, with their respective traits 
-		being represented by propositions. If <em>bald</em> holds in a specific state, it means that the 
-		associated character is in fact bald. Likewise, if <em>glasses</em>,<em>beard</em> and 
-		<em>moustache</em> hold, the character also wears glasses and has a beard and moustache.
+		In these Kripke models the states represent the characters in the game, 
+		with their respective traits being represented by propositions. If 
+		<em>bald</em> holds in a specific state, it means that the associated 
+		character is in fact bald. Likewise, if <em>glasses</em>,<em>beard</em> 
+		and <em>moustache</em> hold, the character also wears glasses and has a 
+		beard and moustache.
 		</p>
 
 		<p>In order to illustrate the dynamic aspect of the model we can look
@@ -115,7 +124,9 @@
 		identity) or at most two turns.
 		</p>
 
-		<div class="mui--text-dark-secondary mui--text-title">Strategies</div>
+		<div class="mui--text-dark-secondary mui--text-title">
+			Strategies
+		</div>
 		<p>
 		Although the game of <em>Guess Who?</em> is not known for its dynamic 
 		and complex gameplay, it is possible to use different strategies to win. 
@@ -126,8 +137,8 @@
 		also on the list of questions that you ask. Based on the list of 
 		remaining characters, a particular question can give you a low chance 
 		to heavily shorten this list, although this also comes with a high chance 
-		of only shortening the list by a few characters. Another strategy is to 
-		avoid risk and only ask questions that will roughly cut the number of 
+		of shortening it by only a few characters. Another strategy is to 
+		avoid risk by only asking questions that will roughly cut the number of 
 		characters in half, without any form of potential punishment. While this 
 		would require the player to ask more questions than in the best case 
 		scenario for the risk strategy, it would require less than in its worst 
@@ -135,26 +146,43 @@
 		</p>
 
 		<p>
-		To investigate these strategies we can look at risk/safe
+		To investigate these strategies we can look at two decision trees: one being the result of using the save strategy and one for the risk strategy. In both trees the questions and answers are only shown for one player. Additionally, the player starts by asking the question <em>"Does he have a beard?"</em>
+		</p>
+		
+		<p>
+		As can be seen in the tree below, the first question would result in leaving either 2 possible characters if answered <em>'yes'</em> and 4 characters if answered <em>'no'</em>. In the first situation the next question could be either <em>"Is he bald"</em> or <em>"Does he have a moustache?"</em>, since the question <em>"Does he wear a glasses?"</em> would not lead to any further decrease in options. After the second answer, we would know with certainty what identity our opponent is. To win the game (given that the opponent has yet to guess our identity) we would have to ask <em>"Is your identity NAME?"</em>. If the initial answer was <em>'yes'</em> we would finish in 3 moves. In the second situation the next question has to be <em>"Does he wear a glasses?"</em>, since the answer would always divide the remaining options in two, whereas the other questions would result in a 1 and 3 split (which is the case in the second question tree). Based on the results from the second question the third question should be <em>"Is he bald"</em> if answered <em>'yes'</em> or <em>"Does he have a moustache"</em> if answered <em>'no'</em>, since other questions would not reduce the number of possibilities at all. This leads to absolute certainty in all remaining cases. Again, after being certain about the identity of the opponent, we have to follow up with the fourth question <em>"Is your identity NAME?"</em>. If the initial answer was <em>'no'</em> we would finish in 4 moves. This shows that in our version of the game there is a 33% chance of finishing with 3 questions and a 66% of finishing in 4 questions.
 		</p>
 		
 		<p style="text-align:center;"><img src="{% static 'StrategyRisk.png' %}" alt="Strategy for taking risk with starting question Beard?"></p>
 		
+		<p>
+		Talk about second tree.
+		</p>
+		
 		<p style="text-align:center;"><img src="{% static 'StrategySafe.png' %}" alt="Strategy for playing safe with starting question Beard?"></p>
+		
 		
 		<div class="mui--text-dark-secondary mui--text-headline">
 			Application
 		</div>
 		<div class="mui-divider"></div>
-
+		<p>
+		
+		</p>
+		
+		
 		<div class="mui--text-dark-secondary mui--text-headline">
 			Conclusion
 		</div>
 		<div class="mui-divider"></div>
 		<p>
-		- Summarise what we did
-		- is it useful
-		- future stuff
+		Summarise what we did
+		
+		is it useful
+		
+		future stuff
+		
+		
 		</p>
 	</div>
 </div>
