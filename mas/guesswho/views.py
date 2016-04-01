@@ -88,6 +88,7 @@ def pick_char(request, name):
         request.session['npc_possible'] = list(characters.keys())
         request.session['questions'] = []
         request.session['exclude_extra'] = []
+        request.session['finished'] = False
     else:
         messages.warning(request, 'This is not a valid character')
     return HttpResponseRedirect(reverse('guesswho:play'))
@@ -98,6 +99,7 @@ def guess(request, name):
     if request.session['npc_char'] == name:
         request.session['questions'].append('Computer: Yes')
         request.session['questions'].append("You've won")
+        request.session['finished'] = True
     else:
         request.session['questions'].append('Computer: No')
         request.session['exclude_extra'].append(name)
@@ -134,7 +136,17 @@ def question(request, subject):
     return HttpResponseRedirect(reverse('guesswho:play'))
 
 def computer_turn(request):
-    # Computer turn
+    request.session.modified = True
+    # Check whether we know for sure what the player's character is
+    print(request.session['npc_possible'], request.session['char'])
+    if len(request.session['npc_possible']) == 1 and \
+            request.session['npc_possible'][0] == request.session['char']:
+        request.session['questions'].append('Computer is it ' + \
+            request.session['npc_possible'][0] + '?')
+        request.session['questions'].append('You: Yes')
+        request.session['questions'].append('The computer has won')
+        request.session['finished'] = True
+        return
     # Count the number of traits that are present in the possible characters
     traits = {}
     for c in request.session['npc_possible']:

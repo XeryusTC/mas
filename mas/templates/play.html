@@ -75,7 +75,7 @@
 				You have picked {{ request.session.char }}. The computer thinks
 				that you are
 				{% for c in  request.session.npc_possible %}
-					{% if forloop.last %} or {% endif %}
+					{% if forloop.last and not forloop.first %} or {% endif %}
 					{{ c }}{% if not forloop.last %}, {%endif %}
 				{% endfor %}.
 			</div>
@@ -116,6 +116,7 @@
 			<div class="mui--text-dark-secondary mui--text-subhead">Questions</div>
 			<div class="mui-divider"></div>
 		</div>
+		{% if not request.session.finished %}
 		<div class="mui-col-sm-10 mui-col-sm-offset-1">
 			<a href="{% url 'guesswho:question' 'bald' %}"
 				class="mui-btn mui-btn--raised">Is he bald?</a>
@@ -126,6 +127,7 @@
 			<a href="{% url 'guesswho:question' 'moustache' %}"
 				class="mui-btn mui-btn--raised">Does he have a moustache?</a>
 		</div>
+		{% endif %}
 	</div>
 
 	<div class="mui-row">
