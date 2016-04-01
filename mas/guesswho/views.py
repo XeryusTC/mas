@@ -27,7 +27,7 @@ class PlayView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(PlayView, self).get_context_data(*args, **kwargs)
-        context['chars'] = characters
+        context['chars'] = sorted(characters.keys())
         try:
             context['npc_knows'] = []
             for k, v in self.request.session['npc_knows'].items():
@@ -54,11 +54,14 @@ class PlayView(TemplateView):
                         context['exclude'].add(name)
                     elif k not in traits and v == YES:
                         context['exclude'].add(name)
-            context['exclude'] = list(context['exclude'])
+            context['exclude'] = list(context['exclude']) + \
+                self.request.session['exclude_extra']
+            context['questions'] = reversed(self.request.session['questions'])
         except KeyError:
             context['npc_knows'] = None
             context['player_knows'] = None
             context['exclude'] = None
+            context['questions'] = None
         return context
 
 
@@ -84,8 +87,23 @@ def pick_char(request, name):
         }
         request.session['npc_possible'] = list(characters.keys())
         request.session['questions'] = []
+        request.session['exclude_extra'] = []
     else:
         messages.warning(request, 'This is not a valid character')
+    return HttpResponseRedirect(reverse('guesswho:play'))
+
+def guess(request, name):
+    question = 'You: is it ' + name + '?'
+    request.session['questions'].append(question)
+    if request.session['npc_char'] == name:
+        request.session['questions'].append('Computer: Yes')
+        request.session['questions'].append("You've won")
+    else:
+        request.session['questions'].append('Computer: No')
+        request.session['exclude_extra'].append(name)
+        computer_turn(request)
+
+    request.session.modified = True
     return HttpResponseRedirect(reverse('guesswho:play'))
 
 def get_question_text(subject):
@@ -110,6 +128,12 @@ def question(request, subject):
         request.session['player_knows'][subject] = NO
     request.session['questions'].append(question)
 
+    computer_turn(request)
+
+    request.session.modified = True
+    return HttpResponseRedirect(reverse('guesswho:play'))
+
+def computer_turn(request):
     # Computer turn
     # Count the number of traits that are present in the possible characters
     traits = {}
@@ -148,6 +172,3 @@ def question(request, subject):
     request.session['questions'].append(answer)
     for c in remove:
         request.session['npc_possible'].remove(c)
-
-    request.session.modified = True
-    return HttpResponseRedirect(reverse('guesswho:play'))

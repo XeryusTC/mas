@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block title %}Play Guess Who?{% endblock %}
 
 {% block content %}
+{% get_static_prefix as STATIC_PREFIX %}
 <div class="mui-row">
 	<div class="mui-col-sm-10 mui-col-sm-offset-1">
 		<div class="mui--text-dark-secondary mui--text-headline">Instructions</div>
@@ -80,36 +81,13 @@
 			</div>
 		</div>
 		<div class="mui-col-sm-6 mui-col-sm-offset-1">
-			{% if 'David' in exclude %}
-				<img src="{% static 'David2.png' %}" alt="David" />
-			{% else %}
-				<img src="{% static 'David.png' %}" alt="David" />
-			{% endif %}
-			{% if 'Frans' in exclude %}
-				<img src="{% static 'Frans2.png' %}" alt="Frans" />
-			{% else %}
-				<img src="{% static 'Frans.png' %}" alt="Frans" />
-			{% endif %}
-			{% if 'Max' in exclude %}
-				<img src="{% static 'Max2.png' %}" alt="Max" />
-			{% else %}
-				<img src="{% static 'Max.png' %}" alt="Max" />
-			{% endif %}
-			{% if 'Paul' in exclude %}
-				<img src="{% static 'Paul2.png' %}" alt="Paul" />
-			{% else %}
-				<img src="{% static 'Paul.png' %}" alt="Paul" />
-			{% endif %}
-			{% if 'Richard' in exclude %}
-				<img src="{% static 'Richard2.png' %}" alt="Richard" />
-			{% else %}
-				<img src="{% static 'Richard.png' %}" alt="Richard" />
-			{% endif %}
-			{% if 'Sam' in exclude %}
-				<img src="{% static 'Sam2.png' %}" alt="Sam" />
-			{% else %}
-				<img src="{% static 'Sam.png' %}" alt="Sam" />
-			{% endif %}
+			{% for c in chars %}
+				<a href="{% url 'guesswho:guess' c %}">
+				<img src="{{ STATIC_PREFIX }}{{ c }}.png"
+					{% if c in exclude %}class="grayscale"{% endif %} />
+				</a>
+			{% endfor %}
+			<br />
 		</div>
 		<div class="mui-col-sm-2">
 			<div class="mui--text-dark-secondary mui--text-caption">
@@ -152,7 +130,7 @@
 
 	<div class="mui-row">
 		<div class="mui-col-sm-10 mui-col-sm-offset-1">
-			{% for question in request.session.questions %}
+			{% for question in questions %}
 				<div>{{ question }}</div>
 			{% endfor %}
 		</div>

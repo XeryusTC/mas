@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^play/reset/$', views.reset_game, name='reset'),
     url(r'^play/char/([a-zA-Z]+)/$', views.pick_char, name='char'),
     url(r'^play/question/([a-zA-Z]+)/$', views.question, name='question'),
+    url(r'^play/guess/([a-zA-Z]+)/$', views.guess, name='guess'),
 ]
