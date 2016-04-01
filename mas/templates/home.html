@@ -76,7 +76,7 @@
 		not certain. The answers to the questions that each player can ask can 
 		be seen as public announcements, which would lead to reduced knowledge 
 		models. At the start of each game, a player's knowledge about the 
-		identity of his opponent can be modeled as follows:
+		identity of his opponent can be modelled as follows:
 		</p>
 
 		<p style="text-align:center;"><img src="{% static 'Kripke0.png' %}" alt="Default Kripke model"></p>
@@ -116,7 +116,7 @@
 
 		<p>
 		It is after this question that we now know that the identity of the
-		opponent is either Sam or Paul. We can ofcourse continue with a third
+		opponent is either Sam or Paul. We can continue with a third
 		question, which would allow for a guaranteed correct identification.
 		However, this would take two steps in total. Although we had the option
 		throughout the game, directly guessing a character would result in
@@ -130,7 +130,7 @@
 		<p>
 		Although the game of <em>Guess Who?</em> is not known for its dynamic 
 		and complex gameplay, it is possible to use different strategies to win. 
-		Since the goal is to discover the identity of your opponent before your 
+		Since the goal is to discover the identity of your opponent	before your 
 		own identity is guessed, the number of steps that you'll need to do so 
 		is an important element. This number is largely dependent on the 
 		probability of your opponent having picked a particular character, but 
@@ -146,21 +146,24 @@
 		</p>
 
 		<p>
-		To investigate these strategies we can look at two decision trees: one being the result of using the save strategy and one for the risk strategy. In both trees the questions and answers are only shown for one player. Additionally, the player starts by asking the question <em>"Does he have a beard?"</em>
+		To investigate these strategies we can look at two decision trees: one being the result of using the save strategy and one for the risk strategy. In both trees the questions and answers are only shown for one player. Additionally, the player starts by asking the question <em>"Does he have a beard?"</em>. Note that these decision trees are for one side of the game only, with the opponents line of questioning left out. 
 		</p>
 		
 		<p>
-		As can be seen in the tree below, the first question would result in leaving either 2 possible characters if answered <em>'yes'</em> and 4 characters if answered <em>'no'</em>. In the first situation the next question could be either <em>"Is he bald"</em> or <em>"Does he have a moustache?"</em>, since the question <em>"Does he wear a glasses?"</em> would not lead to any further decrease in options. After the second answer, we would know with certainty what identity our opponent is. To win the game (given that the opponent has yet to guess our identity) we would have to ask <em>"Is your identity NAME?"</em>. If the initial answer was <em>'yes'</em> we would finish in 3 moves. In the second situation the next question has to be <em>"Does he wear a glasses?"</em>, since the answer would always divide the remaining options in two, whereas the other questions would result in a 1 and 3 split (which is the case in the second question tree). Based on the results from the second question the third question should be <em>"Is he bald"</em> if answered <em>'yes'</em> or <em>"Does he have a moustache"</em> if answered <em>'no'</em>, since other questions would not reduce the number of possibilities at all. This leads to absolute certainty in all remaining cases. Again, after being certain about the identity of the opponent, we have to follow up with the fourth question <em>"Is your identity NAME?"</em>. If the initial answer was <em>'no'</em> we would finish in 4 moves. This shows that in our version of the game there is a 33% chance of finishing with 3 questions and a 66% of finishing in 4 questions.
+		As can be seen in the tree below, the first question would result in leaving either 2 possible characters if answered <em>'yes'</em> and 4 characters if answered <em>'no'</em>. In the first situation the next question could be either <em>"Is he bald?"</em> or <em>"Does he have a moustache?"</em>, since the question <em>"Does he wear a glasses?"</em> would not lead to any further decrease in options. After the second answer, we would know with certainty what identity our opponent is. To win the game (given that the opponent has yet to guess our identity) we would have to ask <em>"Is your identity NAME?"</em>. If the initial answer was <em>'yes'</em> we would finish in 3 moves. In the second situation the next question has to be <em>"Does he wear a glasses?"</em>, since the answer would always divide the remaining options in two, whereas the other questions would result in a 1 and 3 split (which is the case in the second decision tree). Based on the results from the second question the third question should be <em>"Is he bald"</em> if answered <em>'yes'</em> or <em>"Does he have a moustache"</em> if answered <em>'no'</em>, since other questions would not reduce the number of possibilities at all. This leads to absolute certainty in all remaining cases. Again, after being certain about the identity of the opponent, we have to follow up with the fourth question <em>"Is your identity NAME?"</em>. If the initial answer was <em>'no'</em> we would finish in 4 moves. This shows that in our version of the game there is a 33% chance of finishing with 3 questions and a 66% chance of finishing in 4 questions.
 		</p>
 		
 		<p style="text-align:center;"><img src="{% static 'StrategyRisk.png' %}" alt="Strategy for taking risk with starting question Beard?"></p>
 		
 		<p>
-		Talk about second tree.
+		The second decision tree (seen below) shows that when using the risk strategy the results are similar to that of the safe strategy, with the left side of both trees being equal to each other. However, since we want to ask questions that will potentially shorten the list of characters as much as possible, we can either ask <em>"Is he bald?"</em> or <em>"Does he have a moustache?"</em>. This will lead to 1 remaining option if answered with <em>'yes'</em>. If our second answer is <em>'no'</em> we would have 3 characters remaining. To further decrease our options we can ask either <em>"Does he wear a glasses?"</em> or <em>"Does he have a moustache?"</em> if our previous question was <em>"Is he bald"</em>, else we can ask either <em>"Does he wear a glasses?"</em> or <em>"Is he bald?"</em>. In all cases we would split our options between either 1 or 2 remaining options. With the addition of the question <em>"Is your identity NAME?"</em> we can see that depending on the identity of our opponent we would finish in 3 questions with 50% chance, in 4 questions with a 16.7% chance and in 5 questions with 33.3% chance. 
 		</p>
 		
 		<p style="text-align:center;"><img src="{% static 'StrategySafe.png' %}" alt="Strategy for playing safe with starting question Beard?"></p>
 		
+		<p>
+		The two trees above show that the risk strategy gives us a higher chance to finish in 3 questions, but at the risk of finishing in 5 questions if we are unlucky. The decision trees are more or less the same for the remaining questions as our starting points, with the same probabilities that we previously found. However, for the question <em>"Is he bald?"</em> only 1 tree is possible with a 50% chance finish in 3 steps, a 16.7% chance in 4 steps and a 33% chance finish in 5 steps (This is because all characters with more than two traits are eliminated if answered <em>'no'</em>). As we mentioned earlier, these decision trees reflect only one side of the questions that are asked during the game. Furthermore, the paths that are seen in the trees will not always be followed by players, since at any given point the player can ask <em>"Is your identity NAME?"</em> (assuming it is the player's turn to ask). Risky players could just go through the entire character list, one by one, until the correct character is guessed. This might be a valid tactic in our version of the game, but in the full version, with 24 characters, the player would have to use a different strategy. Another reason why players would divert from the decision trees is the knowledge that we have of other players. Take for example that we know that our opponent is 1 or 2 questions away from guessing our identity, while we still need to ask a few more questions. It would be foolish not to try our luck in directly guessing the identity of our opponent, if we know that we are going to lose. 
+		</p>
 		
 		<div class="mui--text-dark-secondary mui--text-headline">
 			Application
