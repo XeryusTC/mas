@@ -100,6 +100,8 @@ def guess(request, name):
         request.session['questions'].append('Computer: Yes')
         request.session['questions'].append("You've won")
         request.session['finished'] = True
+        request.session['exclude_extra'] = list(characters.keys())
+        request.session['exclude_extra'].remove(name)
     else:
         request.session['questions'].append('Computer: No')
         request.session['exclude_extra'].append(name)
