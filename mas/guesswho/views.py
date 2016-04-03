@@ -159,12 +159,20 @@ def computer_turn(request):
                 traits[t] = 1
     print(traits)
     # Pick the trait with the highest character count
-    trait = list(traits.keys())[0]
-    max = traits[trait]
-    for t, v in traits.items():
-        if v > max:
-            max = v
-            trait = t
+    trait = max(traits)
+    # If there is only one character with a trait max, start guessing
+    if traits[trait] == 1:
+        char = random.choice(request.session['npc_possible'])
+        question = 'Computer: Is it ' + char + '?'
+        request.session['questions'].append(question)
+        if request.session['char'] == char:
+            request.session['questions'].append('You: Yes.')
+            request.session['questions'].append('The computer has won')
+            request.session['finished'] = True
+        else:
+            request.session['questions'].append('You: No.')
+            request.session['npc_possible'].remove(char)
+        return
     # Ask the question about the trait (and update the Kripke model)
     question = 'Computer: ' + get_question_text(trait)
     request.session['questions'].append(question)
