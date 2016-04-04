@@ -13,7 +13,7 @@
 		<p>
 		Welcome to our final project for the <em>Multi-Agent Systems</em>
 		course. Here we describe and analyse the well-known classical game of
-		<em>Guess Who?</em> with the use of <em>epistemic logic</em>. 
+		<em>Guess Who?</em> with the use of <em>epistemic logic</em>.   
 		</p>
 
 		<p>
@@ -33,7 +33,9 @@
 		character traits: whether the person has a <em>beard</em>,
 		<em>moustache</em>, <em>glasses</em> and whether the person is
 		<em>bald</em>. For each trait we choose two characters who exhibited a
-		given trait, which led to a total of six characters.
+		given trait, which led to a total of six characters. A version of this 
+		game, along with knowledge representations for both the player and NPC, 
+		can be found on the <em>play page</em>.
 		</p>
 
 		<div class="mui--text-dark-secondary mui--text-headline">Analysis</div>
@@ -90,11 +92,13 @@
 		beard and moustache.
 		</p>
 
-		<p>In order to illustrate the dynamic aspect of the model we can look
+		<p>
+		In order to illustrate the dynamic aspect of the model we can look
 		at the following example. Take the identity of our opponent to be Sam.
 		Note that the following example only shows the knowledge about the
 		opponents identity. A complete game would also require a model for the
-		knowledge about your own character.</p>
+		knowledge about your own character.
+		</p>
 
 		<p>
 		We can ask whether the person has a moustache. Assuming that the
@@ -106,11 +110,13 @@
 
 		<p style="text-align:center;"><img src="{% static 'Kripke1.png' %}" alt="Updated Kripke model after 1 question"></p>
 
-		<p>We know that David, Sam, Frans and Paul are still viable
+		<p>
+		We know that David, Sam, Frans and Paul are still viable
 		alternatives. To further decrease the options we can ask whether the
 		person wears glasses, to which the opponent responds with
 		<em>'yes'</em>. Since we know that <em>glasses</em> holds, we can
-		update our model once again:</p>
+		update our model once again:
+		</p>
 
 		<p style="text-align:center;"><img src="{% static 'Kripke2.png' %}" alt="Updated Kripke model after 2 question"></p>
 
@@ -242,13 +248,33 @@
 		</div>
 		<div class="mui-divider"></div>
 		<p>
-		Summarise what we did
+		For this project we analysed an altered version of the game 
+		<em>Guess Who?</em>, as well as construct an online playable version 
+		using Python. The analysis consisted of using epistemic logic in the form 
+		of public announcements and Kripke structures to model the knowledge of 
+		players throughout the game. Two types of strategies were discussed with the 
+		use of decision trees: A risk strategy, where the player aimed to remove as 
+		many characters as possible, as well as a safe strategy, where the player 
+		divided his or her options as evenly as possible. The use of asking whether 
+		a particular character is the identity of the opponent was also discussed. 
+		</p>
 		
-		is it useful
+		<p>
+		The use of epistemic logic helped us model a playable version quickly and 
+		accurately. With a clear view of what players know about each other, we were		
+		able to visualise the options that a player has. Additionally with the use of 
+		the strategies discussed, we created a NPC which can ask relevant questions 
+		to a certain extend.   
+		</p>
 		
-		future stuff
-		
-		
+		<p>
+		Future directions for this project are to further visualize the options that 
+		the NPC has, since at the current state we can only see the characters options 
+		for the player. Further more, there is room for improvement in the behaviour 
+		of the NPC, where at a future state players can choose how the opponent should 
+		act. However, main direction would be to extend the game to its full state, 
+		where the number of characters are increased to 24, as well as the number of 
+		traits available. This would result in more types of questions to ask.		
 		</p>
 	</div>
 </div>
