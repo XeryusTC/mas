@@ -12,21 +12,21 @@
 	</div>
 	<div class="mui-col-sm-10 mui-col-sm-offset-1">
 		<p>Start by picking a character as your identity by clicking a portret.
-		The identity of the computer will be chosen randomly.</p>
+		The identity of the NPC will be chosen randomly.</p>
 		
 		<p>After you have picked a character the game board will appear with
 		the selection of characters and buttons beneath them. You can ask the
-		computer about its identity by clicking the buttons. The computer will
+		NPC about its identity by clicking the buttons. The NPC will
 		answer the it and it will follow up with its own question, which is
 		automatically answered for you. You can also click on one of the
-		portraits to make a direct guess at the computer's identity.</p>
+		portraits to make a direct guess at the NPC's identity.</p>
 
-		<p>You can keep track of what the computer knows about your identity by
+		<p>You can keep track of what the NPC knows about your identity by
 		looking at the truth propositions located to the right of the portrets.
-		Your own identity and what the computer thinks your identity is are
+		Your own identity and what the NPC thinks your identity is are
 		shown above the game board.</p>
 		
-		<p>The game is won if you guess the computers's identity before your
+		<p>The game is won if you guess the NPC's identity before your
 		own is discovered. The game can be reset by pressing the START NEW GAME
 		button at the top of the page.</p>
 	</div>
@@ -75,7 +75,7 @@
 		</div>
 		<div class="mui-col-sm-10 mui-col-sm-offset-1">
 			<div class="mui--text-body2">
-				You have picked {{ request.session.char }}. The computer thinks
+				You have picked {{ request.session.char }}. The NPC thinks
 				that you are
 				{% for c in  request.session.npc_possible %}
 					{% if forloop.last and not forloop.first %} or {% endif %}
